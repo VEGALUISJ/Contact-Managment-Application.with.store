@@ -36,7 +36,9 @@ class ContactCard extends React.Component {
 											</button>
 										</Link>
 
-										<button className="btn" onClick={() => this.props.onDelete()}>
+										<button
+											className="btn"
+											onClick={() => actions.deleteContact(this.props.position)}>
 											<i className="fas fa-trash-alt" />
 										</button>
 									</div>
@@ -81,7 +83,8 @@ ContactCard.propTypes = {
 	address: PropTypes.string,
 	phone: PropTypes.string,
 	email: PropTypes.string,
-	id: PropTypes.integer
+	id: PropTypes.integer,
+	position: PropTypes.number
 };
 
 /**

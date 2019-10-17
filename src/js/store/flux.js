@@ -3,19 +3,27 @@ const getState = ({ getStore, setStore }) => {
 		store: {
 			contacts: [
 				{
-					id: 1,
-					full_name: "Fernando Funez",
-					email: "fercho@gmail.comm",
-					phone: "7864445566",
-					address: "47568 NW 34ST, 33434 FL, USA"
+					id: "1",
+					full_name: "Jose",
+					email: "Jose@gmail.com",
+					phone: "(786) 123 4567",
+					address: "EE UU"
 				},
 
 				{
-					id: 2,
-					full_name: "Sharon Elman",
-					email: "shuspaluspa@gmail.comm",
-					phone: "7864445566",
-					address: "47568 NW 34ST, 33434 FL, USA"
+					id: "2",
+					full_name: "Ricardo",
+					email: "Ricardo@gmail.com",
+					phone: "(786) 123 4567",
+					address: "Espana"
+				},
+
+				{
+					id: "3",
+					full_name: "Fernando",
+					email: "Fernando@gmail.com",
+					phone: "(786) 123 4567",
+					address: "Italia"
 				}
 			]
 		},
@@ -35,10 +43,10 @@ const getState = ({ getStore, setStore }) => {
 					])
 				});
 			},
+
 			editContact: (name, address, phone, email, id) => {
 				let store = getStore();
 				let contactIndex = store.contacts.findIndex(item => item.id == id);
-				console.log("index", contactIndex);
 				setStore({
 					contacts: store.contacts[contactIndex]([
 						{
@@ -50,13 +58,21 @@ const getState = ({ getStore, setStore }) => {
 					])
 				});
 			},
+
 			deleteContact: id => {
-				let store = getStore();
-				let filteredItems = store.contacts.filter((contact, index) => contact.id !== id);
-				console.log(filteredItems);
-				//console.log(key);
+				const store = getStore();
+				const filteredItems = store.contacts.filter((contacts, index) => {
+					return id !== index;
+				});
 				setStore({ contacts: filteredItems });
 			}
+
+			//deleteContact: id => {
+			//let store = getStore();
+			//let filteredItems = store.contacts.filter((contact, index) => contact.id !== id);
+			//setStore({ contacts: filteredItems });
+			//}
+
 			// Remember to use the scope: scope.state.store & scope.setState()
 		}
 	};
