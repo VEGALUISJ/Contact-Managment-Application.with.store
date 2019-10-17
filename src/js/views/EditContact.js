@@ -75,7 +75,13 @@ export default class EditContact extends React.Component {
 											)
 										}
 										type="button"
-										className="btn btn-primary form-control">
+										className="btn btn-primary form-control"
+										disabled={
+											!this.state.name &&
+											!this.state.address &&
+											!this.state.phone &&
+											!this.state.email
+										}>
 										save
 									</button>
 									<Link className="mt-3 w-100 text-center" to="/">

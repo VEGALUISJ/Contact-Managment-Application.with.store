@@ -47,6 +47,7 @@ const getState = ({ getStore, setStore }) => {
 			editContact: (name, address, phone, email, id) => {
 				let store = getStore();
 				let contactIndex = store.contacts.findIndex(item => item.id == id);
+				console.log("en el flux", contactIndex);
 				setStore({
 					contacts: store.contacts[contactIndex]([
 						{
