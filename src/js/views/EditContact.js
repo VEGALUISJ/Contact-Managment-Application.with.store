@@ -4,15 +4,23 @@ import PropTypes from "prop-types";
 import { Consumer } from "../store/appContext";
 
 export default class EditContact extends React.Component {
-	constructor() {
-		super();
-		this.state = {
-			name: "",
-			address: "",
-			phone: "",
-			email: ""
-		};
+	constructor(props) {
+		super(props);
+		this.inputName = React.createRef();
+		this.inputEmail = React.createRef();
+		this.inputPhone = React.createRef();
+		this.inputAdress = React.createRef();
 	}
+
+	editValue = (e, id) => {
+		e.preventDefault();
+		let name = this.inputName.current.value;
+		let email = this.inputEmail.current.value;
+		let phone = this.inputPhone.current.value;
+		let address = this.inputAdress.current.value;
+		return { name, address, phone, email, id };
+	};
+
 	render() {
 		return (
 			<Consumer>
@@ -28,8 +36,8 @@ export default class EditContact extends React.Component {
 										<label>Full Name</label>
 										<input
 											defaultValue={contact.full_name}
-											onChange={e => this.setState({ name: e.target.value })}
 											type="text"
+											ref={this.inputName}
 											className="form-control"
 											placeholder="Full Name"
 										/>
@@ -38,8 +46,8 @@ export default class EditContact extends React.Component {
 										<label>Email</label>
 										<input
 											defaultValue={contact.email}
-											onChange={e => this.setState({ email: e.target.value })}
 											type="email"
+											ref={this.inputEmail}
 											className="form-control"
 											placeholder="Enter email"
 										/>
@@ -48,8 +56,8 @@ export default class EditContact extends React.Component {
 										<label>Phone</label>
 										<input
 											defaultValue={contact.phone}
-											onChange={e => this.setState({ phone: e.target.value })}
 											type="phone"
+											ref={this.inputPhone}
 											className="form-control"
 											placeholder="Enter phone"
 										/>
@@ -58,32 +66,33 @@ export default class EditContact extends React.Component {
 										<label>Address</label>
 										<input
 											defaultValue={contact.address}
-											onChange={e => this.setState({ address: e.target.value })}
 											type="text"
+											ref={this.inputAdress}
 											className="form-control"
 											placeholder="Enter address"
 										/>
 									</div>
-									<button
-										onClick={() =>
-											actions.editContact(
-												this.state.name,
-												this.state.address,
-												this.state.phone,
-												this.state.email,
-												contact.id
-											)
-										}
-										type="button"
-										className="btn btn-primary form-control"
-										disabled={
-											!this.state.name &&
-											!this.state.address &&
-											!this.state.phone &&
-											!this.state.email
-										}>
-										save
-									</button>
+									<Link to="/">
+										<button
+											onClick={e => {
+												const edit = this.editValue(e, contact.id);
+												if (edit) {
+													console.log(edit);
+													actions.editContact(
+														edit.name,
+														edit.address,
+														edit.phone,
+														edit.email,
+														edit.id
+													);
+													this.props.history.push("/");
+												}
+											}}
+											type="button"
+											className="btn btn-primary form-control">
+											save
+										</button>
+									</Link>
 									<Link className="mt-3 w-100 text-center" to="/">
 										or get back to contacts
 									</Link>
@@ -97,5 +106,6 @@ export default class EditContact extends React.Component {
 	}
 }
 EditContact.propTypes = {
-	match: PropTypes.object
+	match: PropTypes.object,
+	history: PropTypes.string
 };
