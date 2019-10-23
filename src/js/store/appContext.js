@@ -22,11 +22,13 @@ const injectContext = PassedComponent => {
 		}
 
 		componentDidMount() {
-			fetch("https://assets.breatheco.de/apis/fake/contact/agenda")
+			fetch("https://assets.breatheco.de/apis/fake/contact/agenda/jose_agenda")
 				.then(response => response.json())
 				.then(data => {
-					//console.log(data);
-					let store = this.state.store;
+					console.log(data);
+					let { store } = this.state;
+					//store.contacts = data;
+					this.setState({ store: { ...store, agenda: data } });
 				});
 		}
 

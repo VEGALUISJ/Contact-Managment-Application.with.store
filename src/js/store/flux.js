@@ -1,31 +1,7 @@
 const getState = ({ getStore, setStore }) => {
 	return {
 		store: {
-			contacts: [
-				{
-					id: "1",
-					full_name: "Jose",
-					email: "Jose@gmail.com",
-					phone: "(786) 123 4567",
-					address: "EE UU"
-				},
-
-				{
-					id: "2",
-					full_name: "Ricardo",
-					email: "Ricardo@gmail.com",
-					phone: "(786) 123 4567",
-					address: "Espana"
-				},
-
-				{
-					id: "3",
-					full_name: "Fernando",
-					email: "Fernando@gmail.com",
-					phone: "(786) 123 4567",
-					address: "Italia"
-				}
-			]
+			contacts: []
 		},
 
 		actions: {
