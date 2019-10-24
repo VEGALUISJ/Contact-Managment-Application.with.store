@@ -7,17 +7,28 @@ const getState = ({ getStore, setStore }) => {
 		actions: {
 			addContact: (name, address, phone, email) => {
 				let store = getStore();
+				const data = {
+					full_name: name,
+					email: email,
+					phone: phone,
+					address: address,
+					agenda_slug: "jose_agenda",
+					id: `${store.contacts.length + 3}`
+				};
 				setStore({
-					contacts: store.contacts.concat([
-						{
-							full_name: name,
-							email: email,
-							phone: phone,
-							address: address,
-							id: store.contacts.length + 3
-						}
-					])
+					contacts: store.contacts.concat([data])
 				});
+				console.log(store);
+				const url = "https://assets.breatheco.de/apis/fake/contact/";
+				fetch(url, {
+					method: "POST",
+					body: JSON.stringify(data),
+					headers: {
+						"Content-Type": "aplication/json"
+					}
+				})
+					.then(response => console.log(response))
+					.catch(err => console.log(err));
 			},
 
 			editContact: (name, address, phone, email, id) => {
