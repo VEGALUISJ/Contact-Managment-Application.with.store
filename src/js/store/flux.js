@@ -12,20 +12,18 @@ const getState = ({ getStore, setStore }) => {
 					email: email,
 					phone: phone,
 					address: address,
-					agenda_slug: "jose_agenda",
-					id: `${store.contacts.length + 3}`
+					agenda_slug: "jose_agenda"
 				};
 				setStore({
 					contacts: store.contacts.concat([data])
 				});
-				console.log(store);
 				const url = "https://assets.breatheco.de/apis/fake/contact/";
 				fetch(url, {
 					method: "POST",
-					body: JSON.stringify(data),
 					headers: {
-						"Content-Type": "aplication/json"
-					}
+						"Content-Type": "application/json"
+					},
+					body: JSON.stringify(data)
 				})
 					.then(response => console.log(response))
 					.catch(err => console.log(err));
@@ -33,6 +31,13 @@ const getState = ({ getStore, setStore }) => {
 
 			editContact: (name, address, phone, email, id) => {
 				let store = getStore();
+				const data = {
+					full_name: name,
+					email: email,
+					phone: phone,
+					address: address,
+					agenda_slug: "jose_agenda"
+				};
 				let contactIndex = store.contacts.findIndex(item => item.id == id);
 				console.log("index", contactIndex);
 
@@ -48,6 +53,14 @@ const getState = ({ getStore, setStore }) => {
 					.concat(store.contacts.slice(contactIndex + 1));
 				console.log("Upd", updated_store);
 				setStore({ contacts: updated_store });
+				// Haciendo metodo put
+				fetch("https://assets.breatheco.de/apis/fake/contact/" + id, {
+					method: "PUT",
+					body: JSON.stringify(data),
+					headers: {
+						"Content-Type": "application/json"
+					}
+				}).then(response => response.json());
 			},
 
 			deleteContact: id => {
